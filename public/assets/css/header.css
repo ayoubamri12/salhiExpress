@@ -1,0 +1,40 @@
+header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    border-radius:20px ;
+    padding: 10px;
+    height: 80px;
+    background-color: var(--bg-color-light);
+  }
+  .user-avatar {
+    width: 50px;
+    height: 50px;
+    margin-right: 12px;
+   
+  }
+  .dropMove{
+    margin-top: 20px;
+    position: relative;
+    left: -250px;
+    font-weight: bold;
+  }
+  hr {
+    width: 95%;
+    height: 1.0px;
+    background-color: #584244;
+    margin: auto 2px;
+    opacity: 0.2;
+  }
+  .dropMove>a:hover{
+    border-radius: 5px;
+    background-color: rgb(206, 204, 204);
+  }
+  .dropMove>a{
+    width: 90%;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
