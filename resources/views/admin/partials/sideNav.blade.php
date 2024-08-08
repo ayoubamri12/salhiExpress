@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-
-</head>
-
-<body>
     <div class="sidebar">
         <div class="menu-btn">
             <i class="ph-bold ph-caret-left"></i>
@@ -15,10 +8,9 @@
                 <img src="{{ asset('/assets/images/aloo-salhi-logo-new.png') }}" alt="" />
             </div>
             <div class="user-details">
-                <p class="title">Salhi<span style="color: orange;">Express</span></p>
+                <p class="title" >Salhi<span style="color: orange;">Express</span></p>
                 <p class="name">
-                    {{ auth()->user()->deliverymen->firtsName . ' ' . auth()->user()->deliverymen->lastName }}</p>
-            </div>
+admin            </div>
         </div>
         <div class="nav">
             <div class="menu">
@@ -104,7 +96,7 @@
             </ul>
         </div>
     </div>
-</body>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"
     integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw=="
     crossorigin="anonymous"></script>
@@ -144,4 +136,4 @@
     });
 </script>
 
-</html>
+

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Coli extends Model
 {
     use HasFactory;
-    public function Deliverymen(){
+    public function deliverymen(){
         return $this->belongsTo(Deliverymen::class);
     }
 }
