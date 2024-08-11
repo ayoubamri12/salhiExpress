@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AdminConttroller;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ColisController;
 use App\Http\Controllers\DeliveryController;
+use App\Models\Coli;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,8 +29,11 @@ Route::get('/logout',[AuthController::class,'logout'])->name("logout");
 // admin 
 Route::middleware("auth")->group(function(){
     Route::get('/admin/dashboard',[AdminConttroller::class,'show'])->name("admin.show");
+    Route::get('/admin/parcels/all',[ColisController::class,'index'])->name("admin.index");
 });
 Route::middleware("auth")->group(function(){
     Route::get('/delivery/home',[DeliveryController::class,'show'])->name("delivery.show");
+    Route::post('/coli/status/{id}',[ColisController::class,'update'])->name("colis.status");
+    Route::get('/delivery/parcels/delivred',[ColisController::class,"deliveredPrcels"])->name("parcels.delivred");
 });
 

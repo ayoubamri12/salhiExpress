@@ -49,7 +49,9 @@ class AuthController extends Controller
             $client=new Client();
             $client->firtsName = $request->input('firtsName');
             $client->lastName = $request->input('lastName');
+            $client->phone = $request->input('phone');
             $client->RIB = $request->input('RIB');
+            $client->qr_rib = $request->file('qr_rib') ? $request->file('qr_rib')->store("images","public") : " ";
             $client->user_id = $user->id;   
             $client->save(); 
             $company=new Company();

@@ -25,13 +25,13 @@
         </div>
         <div class="hr"></div>
         <ul class="menu one">
-          <li class="active">
-            <a href="#">
+          <li class="">
+            <a href="{{route('admin.show')}}">
               <ion-icon name="home-outline"></ion-icon>
               <span>Dashboard</span>
             </a>
           </li>
-          <li>
+          <li class="active">
             <a href="#">
               <ion-icon name="person-outline"></ion-icon>
               <span>Contact</span>

@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{asset('/assets/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('/assets/css/login.css')}}">
-    <title>Document</title>
+    <title>Registerin</title>
     <style>
         .select{
             width: 100%;
@@ -58,82 +58,97 @@
                         <div class="card-body p-md-5">
                             <div class="row justify-content-center">
                                 <div class="col-md-10 col-lg-6 col-xl-7 order-2 order-lg-1">
-
-                                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4" style="color: orange">Create an account</p>
-
-                                    <form action="{{route("register")}}" method="post" id="registrationForm" class="mx-1 mx-md-4">
+    
+                                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4" style="color: orange">Créer un compte</p>
+    
+                                    <form action="{{route("register")}}" method="post" id="registrationForm" class="mx-1 mx-md-4" enctype="multipart/form-data">
                                         @csrf
                                         <div class="d-flex justify-content-between mb-4">
                                             <div data-mdb-input-init class="form-outline flex-fill mb-0 col-5">
                                                 <label class="form-label after" for="firstName">Nom : </label>
                                                 <input type="text" placeholder="Votre Nom" name="firtsName" id="firstName" class="form-control" />
-                                                <p id="firstNameError" style="color: red; display: none;">Please enter your first name</p>
+                                                <p id="firstNameError" style="color: red; display: none;">Veuillez entrer votre nom</p>
                                             </div>
                                             <div data-mdb-input-init class="form-outline flex-fill mb-0 col-5">
-                                                <label class="form-label after" for="lastName">Prenom :  </label>
-                                                <input type="text" placeholder="Votre Prenom" name="lastName" id="lastName" class="form-control" />
-                                                <p id="lastNameError" style="color: red; display: none;">Please enter your last name</p>
+                                                <label class="form-label after" for="lastName">Prénom :  </label>
+                                                <input type="text" placeholder="Votre Prénom" name="lastName" id="lastName" class="form-control" />
+                                                <p id="lastNameError" style="color: red; display: none;">Veuillez entrer votre prénom</p>
                                             </div>
                                         </div>
-
+    
                                         <div class="d-flex justify-content-center mb-4">
                                             <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                                                <label class="form-label after" for="email">Creer une login : </label>
-                                                <input type="text" name="login" placeholder="Nouveaux Login" id="email" class="form-control d-inline-block w-100" />
-                                                <p id="emailError" style="color: red; display: none;">Please enter your email</p>
+                                                <label class="form-label after" for="email">Créer un login : </label>
+                                                <input type="text" name="login" placeholder="Nouveau Login" id="email" class="form-control d-inline-block w-100" />
+                                                <p id="emailError" style="color: red; display: none;">Veuillez entrer un login</p>
                                             </div>
                                         </div>
-
+    
                                         <div class="d-flex justify-content-center mb-4">
                                             <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                                                <label class="form-label after" for="password">Password : </label>
-                                                <input type="password" placeholder="Nouveaux mot de pass" id="password" class="form-control d-inline-block w-100" name="password"/>
-                                                <p id="passwordError" style="color: red; display: none;">Please enter a password</p>
+                                                <label class="form-label after" for="password">Mot de passe : </label>
+                                                <input type="password" placeholder="Nouveau mot de passe" id="password" class="form-control d-inline-block w-100" name="password"/>
+                                                <p id="passwordError" style="color: red; display: none;">Veuillez entrer un mot de passe</p>
                                             </div>
                                         </div>
-
+    
                                         <div class="d-flex justify-content-center mb-4">
                                             <div data-mdb-input-init class="form-groupe flex-fill mb-0 w-100">
-                                                <label class="form-label after" for="type">Are you ? </label>
+                                                <label class="form-label after" for="type">Vous êtes ? </label>
                                                 <select  class="select" name="type" id="type">
-                                                    <option value="deliver">Delivery man</option>
-                                                    <option value="company">Company</option>
+                                                    <option value="deliver">Livreur</option>
+                                                    <option value="company">Entreprise</option>
                                                 </select>
                                             </div>
                                         </div>
-                                        <div id="company" style="display: none" >
+                                        <div id="company" class="my-3" style="display: none">
                                             <div class="d-flex justify-content-between mb-4">
                                                 <div data-mdb-input-init class="form-outline flex-fill mb-0 col-md-5 col-sm-12 mb-sm-4">
-                                                    <label class="form-label after" for="firstName">Company Name : </label>
-                                                    <input type="text" class="form-control" name="company" id="companyInput" />
-                                                    <p id="companyErr" style="color: red; display: none;">Please chose your company name</p>
+                                                    <label class="form-label after" style="font-size: 13px;" for="companyName">Nom d&apos;entreprise : </label>
+                                                    <input type="text" class="form-control" name="company" id="companyInput" placeholder="Votre entreprise" />
+                                                    <p id="companyErr" style="color: red; display: none;">Veuillez choisir le nom de votre entreprise</p>
                                                 </div>
                                                 <div data-mdb-input-init class="form-outline flex-fill mb-0 col-md-5 col-sm-12">
-                                                    <label class="form-label after" for="lastName">RIB :  </label>
+                                                    <label class="form-label after" for="rib">RIB :  </label>
                                                     <input type="text" placeholder="Votre RIB" name="RIB" id="rib" class="form-control" />
-                                                    <p id="ribErr" style="color: red; display: none;">Please enter RIB</p>
+                                                    <p id="ribErr" style="color: red; display: none;">Veuillez entrer un RIB</p>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-2 justify-content-center">
+                                                <div class="col-7">
+                                                    <label class="form-label after" for="phone">Téléphone :  </label>
+                                                    <input type="text" placeholder="Votre Téléphone" name="phone" id="phone" class="form-control w-100" />
+                                                    <p id="phErr" style="color: red; display: none;">Veuillez entrer un numéro de téléphone</p>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-2">
+                                                <div class="col-12">
+                                                    <label class="form-label" for="qr_rib">QR RIB <small class="text-muted">(Optionnel)</small> :  </label>
+                                                    <input type="file" placeholder="Votre QR RIB" name="qr_rib" id="qr_rib" class="form-control w-100" />
                                                 </div>
                                             </div>
                                         </div>
-                                       
+                                        
                                         <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                                            <button type="submit" id="submitButton" data-mdb-button-init data-mdb-ripple-init class="button btn btn-lg" style="background-color: orange">Register</button>
+                                            <button type="submit" id="submitButton" data-mdb-button-init data-mdb-ripple-init class="button btn btn-lg" style="background-color: orange">S'inscrire</button>
                                         </div>
-
+    
                                     </form>
-
+    
                                 </div>
                                 <div class="col-md-10 col-lg-6 col-xl-5 d-flex align-items-center order-1 order-lg-2">
-
+    
                                     <img src={{asset("/assets/images/aloo-salhi-logo-new.png")}}
-                                        class="img-fluid" alt="Sample image">
-
+                                        class="img-fluid" alt="Image d'exemple">
+    
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </section>
+    
             <script>
     const type = document.getElementById('type');
     type.onchange = function () {
@@ -152,6 +167,7 @@
         let password = document.getElementById('password').value.trim();
         let rib = document.getElementById('rib').value.trim();
         let company = document.getElementById('companyInput').value.trim();
+        let phone = document.getElementById('phone').value.trim();
 
         let firstNameError = document.getElementById('firstNameError');
         let lastNameError = document.getElementById('lastNameError');
@@ -159,6 +175,7 @@
         let passwordError = document.getElementById('passwordError');
         let ribErr = document.getElementById('ribErr');
         let companyErr = document.getElementById('companyErr');
+        let phErr = document.getElementById('phErr');
 
         // Reset error messages
         firstNameError.style.display = 'none';
@@ -191,13 +208,16 @@
         }
         if(type.value ==="company" ){
            if (rib === '') {
-            console.log(company);
 
             ribErr.style.display = 'block';
             isValid = false;
         }
         if (company === '') {
             companyErr.style.display = 'block';
+            isValid = false;
+        }
+        if (phone === '') {
+            phErr.style.display = 'block';
             isValid = false;
         }
         }

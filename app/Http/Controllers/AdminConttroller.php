@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Coli;
 use Illuminate\Http\Request;
 
 class AdminConttroller extends Controller
 {
     public function show(){
-        return view('admin.dashboard');
+        $colis = Coli::all();
+        return view('admin.dashboard',compact("colis"));
     }
 }

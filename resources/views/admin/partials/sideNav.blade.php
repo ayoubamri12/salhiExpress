@@ -1,4 +1,5 @@
 
+    
     <div class="sidebar">
         <div class="menu-btn">
             <i class="ph-bold ph-caret-left"></i>
@@ -16,15 +17,43 @@ admin            </div>
             <div class="menu">
                 <p class="title">Main</p>
                 <ul>
-                    <li class="{{ request()->routeIs('delivery.show') ? 'active' : '' }}">
+                    <li class="{{ request()->routeIs('admin.show') ? 'active' : '' }}">
                         <a href="#">
                             <i class="icon ph-bold ph-house-simple"></i>
-                            <span class="text">Home</span>
+                            <span class="text">Dashboard</span>
                         </a>
                     </li>
-
+                    <li  class="{{ request()->is('admin/parcels/*') ? 'active' : '' }}">
+                        <a href="#">
+                            <i class="icon fa-solid fa-box"></i>
+                            <span class="text">Colis</span>
+                            <i class="arrow ph-bold ph-caret-down"></i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a href="{{route("admin.index")}}">
+                                    <span class="text">Tout les colis</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="text">Reporte</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="text">Annule</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="text">Refuse</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                     <li>
-                        <a href="{{ route('delivery.show') }}">
+                        <a href="{{ route('admin.show') }}">
                             <i class="icon ph-bold ph-file-text"></i>
                             <span class="text">Posts</span>
                         </a>
@@ -35,33 +64,7 @@ admin            </div>
                             <span class="text">Schedules</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="#">
-                            <i class="icon ph-bold ph-chart-bar"></i>
-                            <span class="text">Income</span>
-                            <i class="arrow ph-bold ph-caret-down"></i>
-                        </a>
-                        <ul class="sub-menu">
-                            <li>
-                                <a href="#">
-                                    <span class="text">Earnings</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="text">Funds</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="text">Declines</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="text">Payouts</span>
-                                </a>
-                            </li>
+                    
                         </ul>
                     </li>
                 </ul>
@@ -97,43 +100,5 @@ admin            </div>
         </div>
     </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"
-    integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw=="
-    crossorigin="anonymous"></script>
-<script>
-    $(".menu > ul > li").click(function(e) {
-        // remove active from already active
-        $(this).siblings().removeClass("active");
-        // add active to clicked
-        $(this).toggleClass("active");
-        // if has sub menu open it
-        $(this).find("ul").slideToggle();
-        // close other sub menu if any open
-        $(this).siblings().find("ul").slideUp();
-        // remove active class of sub menu items
-        $(this).siblings().find("ul").find("li").removeClass("active");
-    });
-
-    $(".menu-btn").click(function() {
-        $(".sidebar").toggleClass("active");
-    });
-    $(document).ready(function() {
-        checkScreenSize();
-
-        $(window).resize(function() {
-            checkScreenSize();
-        });
-
-        function checkScreenSize() {
-          let windowWidth = $(window).width();
-            $(".sidebar").removeClass("smallScreen");
-            $(".sidebar").removeClass("active");
-            if (windowWidth < 800)
-                $(".sidebar").addClass("smallScreen");
-            if (windowWidth < 500)
-                $(".sidebar").addClass("active");
-        }
-    });
-</script>
 
 

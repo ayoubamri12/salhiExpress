@@ -13,14 +13,18 @@
   padding: 24px;
 }
 .sidebar {
-    position: relative;
-    width: 256px;
+    position:fixed;
+    top: 0;
+    left: 0;
+    width: 245px;
     height: 100vh;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    flex: 1;
     background-color: #fff;
     padding: 24px;
+    z-index: 1000;
     transition: all 0.3s;
 }
 
@@ -156,6 +160,7 @@
 
 .sidebar.active {
     width: 92px;
+    height: 100vh;
 }
 
 .sidebar.active .menu-btn i {
@@ -246,11 +251,23 @@ body {
 }
 
 .containercss {
-    display: flex;
+    display: grid;
+    grid-template-columns: 245px 1fr;
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
 }
-
+.loader {
+    width: 50px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    padding: 3px;
+    background: radial-gradient(farthest-side,#ffa516 95%,#0000) 50% 0/12px 12px no-repeat,
+      radial-gradient(farthest-side,#0000 calc(100% - 5px),#ffa516 calc(100% - 4px)) content-box;
+    animation: l6 2s infinite ;
+  }
+.containercss.actived{
+    grid-template-columns: 94px 1fr;
+}
 @media (max-width: 768px) {
   .sidebar{
     width: 180px ;
@@ -261,8 +278,23 @@ body {
     height: 44px;
     
 }
+.containercss {
+    grid-template-columns: 180px 1fr;
+}
 .user-details .name,.user-details .title {
     font-size: 10px;
    
 }
 }
+@media (max-width: 400px) {
+    .sidebar.active{
+      height: 100vh;
+    }
+    .user-img {
+        width: 44px;
+        height: 44px;       
+    }
+    .user-details .name,.user-details .title {
+        font-size: 6px;     
+    }
+  }

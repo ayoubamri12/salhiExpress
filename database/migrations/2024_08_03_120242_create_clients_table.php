@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('firtsName');
             $table->string('lastName');
+            $table->string('phone');
             $table->string('RIB');
+            $table->string('qr_rib');
             $table->unsignedBigInteger("user_id");
             $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
             $table->timestamps();

@@ -1,3 +1,4 @@
+@props(["coli"])
 <div>
     <!-- Button trigger modal -->
     <button  type="button"  class="btn"
@@ -17,27 +18,10 @@ font-weight: bold; cursor: pointer; background-color: orange;" data-bs-toggle="m
                     </button>
                 </div>
                 <div class="modal-body p-4">
-                    <form>
-                        <div>
-                           <div class="row justify-content-center">
-                            <div class="col-3">
-                                <img src="{{ asset('/assets/images/profile.png') }}" alt="" width="70" height="70">
-                            </div>
-                           </div>
-                            <h5 class="pt-1 my-3">
-                                {{ auth()->user()->deliverymen->firtsName . ' ' . auth()->user()->deliverymen->lastName }}
-                            </h5>
-
-
-                            <div>
-                                {{ $slot }}
-                            </div>
-
-                            <!-- Submit button -->
-                            <button type="submit" class="btn text-light"
-                                style="background-color: orange;">Send</button>
-                        </div>
-                    </form>
+                    <div>
+                        {{ $slot }}
+                    </div>
+                    
                 </div>
             </div>
         </div>

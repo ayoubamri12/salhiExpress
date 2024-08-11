@@ -11,9 +11,10 @@ class modal extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public $coli ;
+    public function __construct($coli)
     {
-        //
+     $this->coli = $coli;   
     }
 
     /**
