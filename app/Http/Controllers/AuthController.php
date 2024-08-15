@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\Company;
 use App\Models\Deliverymen;
+use App\Models\Region;
 use App\Models\User;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
@@ -16,7 +17,8 @@ class AuthController extends Controller
         return view('login.login');
     }
     public function showRegister(){
-        return view('login.register');
+        $regions = Region::all();
+        return view('login.register',compact('regions'));
     }
     public function login(Request $request)
     {
@@ -63,6 +65,7 @@ class AuthController extends Controller
             $delivery->firtsName = $request->input('firtsName');
             $delivery->lastName = $request->input('lastName');
             $delivery->user_id = $user->id;
+            $delivery->region_id = $request->input('region');
             $delivery->save();
         }
         // You can add additional logic here, such as sending a welcome email

@@ -35,7 +35,6 @@
     @if (session()->has('success'))
         <script>
             document.querySelector("div#loaderHolder").style.display="none"
-
             toastr.options = {
                 "closeButton": true,
                 "debug": false,
@@ -92,7 +91,7 @@
                                                         <div class="px-4 py-5">
                                                             <h5 class="text-uppercase">Client : {{ $coli->Name }}</h5>
                                                             <span class="theme-color d-inline-block w-75 mx-auto">Coli
-                                                                code : {{ $coli->id }}</span>
+                                                                code : {{ $coli->code }}</span>
                                                             <div class="mb-3">
                                                                 <hr class="new1">
                                                             </div>
@@ -155,7 +154,7 @@
 
 
                                                 <!-- Submit button -->
-                                                <button type="submit" id="sub" class="btn text-light"
+                                                <button data-bs-dismiss="modal" aria-label="Close" type="submit" id="sub" class="btn text-light"
                                                     style="background-color: orange; cursor: pointer;">Valider</button>
                                             </div>
                                         </form>
@@ -192,7 +191,6 @@
         });
         $("#sub").click(function(){
             document.querySelector("div#loaderHolder").style.display="flex";
-
         })
     </script>
 </x-deliver-layout>

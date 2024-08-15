@@ -22,10 +22,7 @@
                             <i class="icon ph-bold ph-house-simple"></i>
                             <span class="text">Accueil</span>
                         </a>
-                    </li>
-
-                    
-                    
+                    </li>          
                     <li  class="{{ request()->is('delivery/parcels/*') ? 'active' : '' }}">
                         <a href="#">
                             <i class="icon fa-solid fa-box"></i>
@@ -39,21 +36,23 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
-                                    <span class="text">Reporte</span>
+                                <a href="{{route("parcels.delayed")}}">
+                                    <span class="text">Annule&Reporte</span>
                                 </a>
                             </li>
-                            <li>
-                                <a href="#">
-                                    <span class="text">Annule</span>
-                                </a>
-                            </li>
+                            
                             <li>
                                 <a href="#">
                                     <span class="text">Refuse</span>
                                 </a>
                             </li>
                         </ul>
+                    </li>
+                    <li class="">
+                        <a href="{{ route('delivery.show') }}">
+                            <i class="fa-solid fa-qrcode"></i>
+                            <span class="text">QR Code</span>
+                        </a>
                     </li>
                 </ul>
             </div>

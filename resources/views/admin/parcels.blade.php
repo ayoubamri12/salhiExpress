@@ -1,9 +1,22 @@
-<style> .badge-orange{ background-color: orange; } 
-   .table-responsive {
-      overflow-x: auto;
+<style>
+    .badge-orange {
+        background-color: orange;
     }
+    .focus {
+        border-color: orange;
+        box-shadow: 0 0 0 0.2rem rgba(255, 69, 0, 0.25);
+    }
+    .badge.badge-outline-danger{
+        border: .5px solid orange;
+    }
+
 </style>
 <x-admin-layout>
+  <div>
+   
+    <div id="loaderHolder" style="display: none" class="loading">
+        <p class="loader"></p>
+    </div>
     <div class="row mb-4">
         <div class="col-md-3">
             <input type="text" class="form-control" id="code-filter" placeholder="Code d'envoi">
@@ -23,37 +36,40 @@
             <select class="form-control" id="status-filter">
                 <option value="">Statut</option>
                 <option value="Livre">Livré</option>
+                <option value="Raporte">Raporté</option>
                 <option value="Annule">Annulé</option>
-                <option value="autre">Autre</option>
+                <option value="Refuse">Refusé</option>
             </select>
         </div>
         <div class="col-3 mt-1">
             <select class="form-control" id="magasin-filter">
                 <option value="">Nom du magasin</option>
-               @foreach ($parcels as $parcel)
-                <option value="{{$parcel->magasin}}">{{$parcel->magasin}}</option>
-                   
-               @endforeach
+                @foreach ($parcels as $parcel)
+                    <option value="{{ $parcel->magasin }}">{{ $parcel->magasin }}</option>
+                @endforeach
             </select>
-          </div>
-       
+        </div>
+
         <div class="col-3 mt-1">
-          <select class="form-control" id="delivery-filter">
-              <option value="">Liveur</option>
-             @foreach ($parcels as $parcel)
-              <option value="{{$parcel->deliverymen->id}}">{{$parcel->deliverymen->firtsName." ".$parcel->deliverymen->lastName}}</option>
-                 
-             @endforeach
-          </select>
+            <select class="form-control" id="delivery-filter">
+                <option value="">Liveur</option>
+                @foreach ($delmens as $delmen)
+                    <option value="{{ $delmen->id }}">
+                        {{ $delmen->firtsName . ' ' . $delmen->lastName }}</option>
+                @endforeach
+            </select>
         </div>
         <div class="col-md-2 mt-1">
-            <button class="btn me-1" style="background-color: orange;" id="filter-btn"><i class="fa-solid fa-filter"></i>Filtrer</button>
+            <button class="btn me-1" style="background-color: orange;" id="filter-btn"><i
+                    class="fa-solid fa-filter"></i>Filtrer</button>
             <button class="btn btn-success mt-1 p-2" id="refresh-btn"><i class="fa-solid fa-arrows-rotate"></i></button>
         </div>
     </div>
-    <div class="table-responisve"
-        style="border-top:4px solid orange ;border-radius: 2px ; box-shadow: 0px 3px 3px rgb(175, 175, 175) ; background-color: white; padding: 55px;">
-        <table style="width:fit-content;" class="table table-hover table-bordered table-striped">
+    <div 
+        style="border-top:4px solid orange ;border-radius: 2px ; box-shadow: 0px 3px 3px rgb(175, 175, 175) ; background-color: white; padding: 55px;overflow-x: scroll;">
+
+      <div class="table-responsive">
+        <table class="table table-hover table-bordered table-striped">
             <thead>
                 <tr>
                     <th>code d&apos;envoi</th>
@@ -69,7 +85,7 @@
             </thead>
             <tbody>
                 @foreach ($parcels as $parcel)
-                    <tr style="width: 20%;">
+                    <tr>
                         <td>
                             <p>{{ $parcel->code }}</p>
                             <p class="badge badge-info"><i class="fa-solid fa-motorcycle"></i>
@@ -88,31 +104,47 @@
                                 <p class="badge badge-danger">{{ $parcel->state }}</p>
                             @else
                                 <p class="badge badge-primary">{{ $parcel->state }}</p>
-                                @endif
+                            @endif
                         </td>
                         <td>
                             @if ($parcel->status == 'Livre')
                                 <p class="badge badge-success">{{ $parcel->status }}</p>
                             @elseif ($parcel->status == 'Annule')
                                 <p class="badge badge-success">{{ $parcel->status }}</p>
-                            @elseif ($parcel->complaint->req_state = 'approved')
+                            @elseif ($parcel->complaint && $parcel->complaint->req_state == 'approved')
                                 <p class="badge badge-danger">{{ $parcel->status }}</p>
-                                <p class="badge badge-danger">{{ $parcel->complaint->comment }}</p>
-                                <p class="badge badge-orange">Date {{ $parcel->delay }}</p>
+                                <p class="badge badge-outline-danger" style="color:orange;">comment :
+                                    {{ $parcel->complaint->comment }} <br> {{ $parcel->delay }}</p>
                             @else
                                 <p class="badge badge-primary">{{ $parcel->status }}</p>
                             @endif
                         </td>
                         <td> {{ $parcel->destination }} </td>
                         <td> {{ $parcel->price }} DH </td>
-                        <td>
-                            <div class="btn btn-danger">btn</div>
+                        <td style="width: 250px;">
+                           <div class="row justify-content-around">
+                            <x-details-modal></x-details-modal>
+                            <div class="dropdown"> 
+                                <button class="btn" style="background-color: #fe8a39;" type="button" id="btn{{$parcel->id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="bx bx-dots-horizontal-rounded"></i>          
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="btn{{$parcel->id}}">
+                                  
+                                   <x-edit-modal text="Edit Ville" :coli="$parcel">hhhh</x-edit-modal> 
+                                     <x-edit-modal text="Edit Ville" :coli="$parcel">Edit Livreur</x-edit-modal> 
+                                    <a class="dropdown-item text-danger" href="#"><i class="bx bxs-trash mr-2"></i> Remove</a>
+                                </div>
+                              </div>
+                           
                         </td>
                     </tr>
                 @endforeach
             </tbody>
-        </table> {{ $parcels->links('pagination::bootstrap-5') }}
+        </table> 
+      </div>
+        {{ $parcels->links('pagination::bootstrap-5') }}
     </div>
+  </div>
 </x-admin-layout>
 
 <script>
@@ -124,7 +156,8 @@
         const magasinFilter = document.getElementById('magasin-filter');
         const filterBtn = document.getElementById('filter-btn');
         const refreshBtn = document.getElementById('refresh-btn');
-        refreshBtn.onclick = ()=>{
+        const deliveryFilter = document.getElementById('delivery-filter');
+        refreshBtn.onclick = () => {
             window.location.reload();
         }
         filterBtn.addEventListener('click', function() {
@@ -133,10 +166,14 @@
             const stateValue = stateFilter.value;
             const statusValue = statusFilter.value;
             const magasinValue = magasinFilter.value;
-
+            const deliveryValue = deliveryFilter.value;
+     
+            document.querySelector("div#loaderHolder").style.display="flex";
+ 
             // Make an AJAX request to the server with the filter values
             fetch(
-                    `/api/parcels?code=${codeValue}&date=${dateValue}&state=${stateValue}&status=${statusValue}&magasin=${magasinValue}`)
+                    `/api/parcels?code=${codeValue}&date=${dateValue}&state=${stateValue}&status=${statusValue}&magasin=${magasinValue}&delivery=${deliveryValue}`
+                    )
                 .then(response => response.json())
                 .then(data => {
                     // Update the table with the filtered data
@@ -150,7 +187,7 @@
                     data.data.forEach(parcel => {
                         // Render the table row for each parcel
                         tableBody.innerHTML += `
-                        <tr style="width: 20%">
+                        <tr>
                         <td>
                             <p>${ parcel.code }</p>
                             <p class="badge badge-info"><i class="fa-solid fa-motorcycle"></i>
@@ -167,9 +204,10 @@
                         </td>
                         <td>
                             ${
-                                parcel.status == 'Livre' ?  `<p class="badge badge-success">${parcel.status }</p>` : parcel.status == 'Annule' ? `<p class="badge badge-success">${parcel.status }</p>`:parcel.complaint.req_state == 'approved' ?`<p class="badge badge-danger">${parcel.status }</p>
-                                <p class="badge badge-danger">${parcel.complaint.comment }</p>
-                                <p class="badge badge-orange">Date ${parcel.delay }</p>`:` <p class="badge badge-primary">${parcel.status }</p>`
+                                parcel.status == 'Livre' ?  `<p class="badge badge-success">${parcel.status }</p>` : parcel.status == 'Annule' ? `<p class="badge badge-success">${parcel.status }</p>`:parcel.complaint&&parcel.complaint.req_state == 'approved' ?`<p class="badge badge-danger">${parcel.status }</p>
+                                <p class="badge badge-outline-danger" style="color:orange;">comment :
+                                     ${parcel.complaint.comment } <br/>${parcel.delay } </p>
+                               `:` <p class="badge badge-primary">${parcel.status }</p>`
                             }
                         </td>
                         <td> ${parcel.destination } </td>
@@ -179,9 +217,20 @@
                         </td>
                     </tr>
                         `;
+                        
                     });
+                    document.querySelector("div#loaderHolder").style.display="none";
                 })
-                
+
         });
     });
+
+    // Get the table element
+   /* const $table = $('.table');
+
+    $table.on('click', 'td', handleRowFocus);
+
+    function handleRowFocus(event) {
+        $(event.currentTarget).toggleClass('focus');
+    }*/
 </script>

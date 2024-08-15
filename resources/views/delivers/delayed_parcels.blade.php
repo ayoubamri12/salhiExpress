@@ -56,11 +56,11 @@
 
     @media (max-width: 390px) {
         .text-info {
-            font-size: 10px;
+            font-size: 8px;
         }
 
         .subject h3 {
-            font-size: 12px;
+            font-size: 10px;
 
         }
     }
@@ -70,17 +70,27 @@
 
         @if ($colis->count() > 0)
             @foreach ($colis as $coli)
-                @if (date('Y-m-d', strtotime($coli->updated_at)) == date('Y-m-d'))
+                @if ($coli->complaint !== null)
                     <div class="wrapper-info mb-3">
                         <div class="card" style="border-left: 5px solid #ed6e09;">
                             <div class="row w-100 justify-content-between align-items-center">
-                                <div class="icon col-2" style="color: rgb(50, 214, 50);">
-                                    
-                                    <i class="fas fa-check-circle"></i>
+                                <div class="icon col-2" style="color: orangered">
+                                    @if ($coli->complaint->status === 'Reporte')
+                                        <i class="fa-regular fa-clock"></i>
+                                    @else
+                                        <i class="fa-solid fa-xmark fa-fade"></i>
+                                    @endif
                                 </div>
-                                <div class="subject col-9">
-                                    <h3 class="" style="color: #ed6e09;">delivred</h3>
-                                    <p class="" style="color: #ed6e09;">code : {{$coli->code }}</p>
+                                <div class="subject col-8">
+                                    <h3 class="" style="color: #ed6e09;">{{ $coli->complaint->status }}</h3>
+                                    <p class="" style="color: #ed6e09;">code : {{ $coli->code }}</p>
+                                </div>
+                                <div style="width: fit-content; margin-top:15px ">
+                                    @if ($coli->complaint->status === 'Reporte')
+                                        <p style="color: rgb(207, 207, 207);font-size: 13px">{{ $coli->complaint->updated_at->format('H:i') }} <i
+                                                class="fa-regular fa-clock"></i>
+                                        </p>
+                                        @endif
                                 </div>
                             </div>
                         </div>
@@ -90,13 +100,13 @@
             <div id="alrt" style="display: none;" class="wrapper-info">
                 <div class="wrapper-info">
                     <div class="card">
-                       <div class="row justify-content-between align-items-center w-100">
-                        <div class="icon col-2"><i class="fas fa-info-circle"></i></div>
-                        <div class="subject col-10">
-                            <h3 class="text-primary">Info</h3>
-                            <p class="text-info">there is yet no delivered parcels for today 1</p>
+                        <div class="row justify-content-between align-items-center w-100">
+                            <div class="icon col-2"><i class="fas fa-info-circle"></i></div>
+                            <div class="subject col-10">
+                                <h3 class="text-primary">Info</h3>
+                                <p class="text-info">there is yet no delayed parcels for today 1</p>
+                            </div>
                         </div>
-                       </div>
                     </div>
                 </div>
             </div>
@@ -105,12 +115,11 @@
                 <div class="card">
                     <div class="row w-100 align-items-center">
                         <div class="icon col-2"><i class="fas fa-info-circle"></i></div>
-                        <div class="subject col-10">
-                            <h3 class="text-primary">Info</h3>
-                            <p class="text-info">there is yet no delivered parcels for today</p>
-                        </div>
+                    <div class="subject col-10">
+                        <h3 class="text-primary">Info</h3>
+                        <p class="text-info">there is yet no delayed parcels for today</p>
                     </div>
-                    
+                    </div>
                 </div>
             </div>
         @endif

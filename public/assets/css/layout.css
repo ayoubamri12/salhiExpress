@@ -249,7 +249,19 @@
 body {
     background-color: rgb(238, 235, 235);
 }
-
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    /* Add additional styles as needed */
+  }
 .containercss {
     display: grid;
     grid-template-columns: 245px 1fr;
@@ -265,6 +277,8 @@ body {
       radial-gradient(farthest-side,#0000 calc(100% - 5px),#ffa516 calc(100% - 4px)) content-box;
     animation: l6 2s infinite ;
   }
+@keyframes l6 {to{transform: rotate(1turn)}}
+
 .containercss.actived{
     grid-template-columns: 94px 1fr;
 }

@@ -383,13 +383,18 @@
 
 <script>
    	
-       $(document).ready(function() {
-            var table = $('#example').DataTable({
-                responsive: true,
-                columnDefs: [
-                    { orderable: false, targets: [0] }
-                ]
-            });
+       var table = $('table#example').DataTable({
+    responsive: true,
+    columnDefs: [
+        { orderable: false, targets: [0] }
+    ],
+    order: [[1, 'asc']], // Sort by the second column (index 1) in ascending order
+    paging: true,
+    pageLength: 10,
+    lengthMenu: [[10, 25, 50, -1], [10, 25, 50, 'All']],
+    pagingType: 'simple_numbers',
+    searching: false
+});
 
             // Select all functionality
             $('#selectAll').on('click', function() {
@@ -407,7 +412,7 @@
                 }
             });
 
-            // Make rows draggable
+          /*  // Make rows draggable
             $(".draggable").draggable({
                 helper: "clone",
                 start: function(event, ui) {
@@ -428,8 +433,8 @@
                     // Here, you can handle the new order
                     console.log(order);
                 }
-            }).disableSelection();
-        });
+            }).disableSelection();*/
+       
 </script>
 </x-admin-layout>
 

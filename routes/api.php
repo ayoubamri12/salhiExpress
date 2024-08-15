@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get("/parcels", [ColisController::class, "filteredData"]);
+Route::get("/free_parcels", [ColisController::class, "free_parcel"]);

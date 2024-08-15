@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Coli extends Model
 {
     use HasFactory;
-    protected $fillable = ["id",'destination','phone_number','Name','state','status','price','magasin','deliverymen_id'];
+    protected $fillable = ["id",'destination','phone_number','Name','state','status','price','magasin','deliverymen_id','qr_code'];
     public function deliverymen(){
         return $this->belongsTo(Deliverymen::class);
     }

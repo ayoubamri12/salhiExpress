@@ -18,7 +18,7 @@ admin            </div>
                 <p class="title">Main</p>
                 <ul>
                     <li class="{{ request()->routeIs('admin.show') ? 'active' : '' }}">
-                        <a href="#">
+                        <a href="{{route("admin.show")}}">
                             <i class="icon ph-bold ph-house-simple"></i>
                             <span class="text">Dashboard</span>
                         </a>
@@ -36,13 +36,8 @@ admin            </div>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
-                                    <span class="text">Reporte</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="text">Annule</span>
+                                <a href="{{route("admin.free_parcels")}}">
+                                    <span class="text">Libre</span>
                                 </a>
                             </li>
                             <li>

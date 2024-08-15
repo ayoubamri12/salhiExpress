@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string("status");
             $table->string("price");
             $table->string("magasin");
+            $table->string("qr_code");
             $table->unsignedBigInteger("deliverymen_id")->nullable();
             $table->foreign("deliverymen_id")->references("id")->on("deliverymens")->onDelete("cascade");
             $table->timestamps();
