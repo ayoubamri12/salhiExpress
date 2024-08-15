@@ -70,7 +70,7 @@
 
         @if ($colis->count() > 0)
             @foreach ($colis as $coli)
-                @if ($coli->complaint !== null)
+                @if ($coli->complaint->req_state ==="not approved")
                     <div class="wrapper-info mb-3">
                         <div class="card" style="border-left: 5px solid #ed6e09;">
                             <div class="row w-100 justify-content-between align-items-center">

@@ -11,9 +11,8 @@ class AdminConttroller extends Controller
 {
     public function index()
     {
-        $parcels = Coli::has("deliverymen")->latest()->paginate(15);
         $delmens = Deliverymen::all();
-        return view("admin.parcels", compact('parcels','delmens'));
+        return view("admin.parcels", compact('delmens'));
     }
     public function show(){
         $colis = Coli::all();
@@ -27,7 +26,7 @@ class AdminConttroller extends Controller
         return view("admin.forms.parcel_formExcel");
     }
     public function free_parcels(){
-
-        return view("admin.free_parcels");
+        $delmens = Deliverymen::all();
+        return view("admin.free_parcels", compact('delmens'));
     }
 }
