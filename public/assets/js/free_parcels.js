@@ -29,6 +29,31 @@
      function handleRowFocus(event) {
          $(event.currentTarget).toggleClass('focus');
      }*/
+     let start, end;
+     function cb(st, ed) {
+         $('#reportrange span').html(st.format('MMMM D, YYYY') + ' - ' + ed.format('MMMM D, YYYY'));
+         start = st.format('YYYY-MM-DD')
+         end = ed.format('YYYY-MM-DD')
+     }
+     
+     $('#reportrange').daterangepicker({
+         startDate: moment('2024-08-01'),
+         endDate: moment(),
+         ranges: {
+     
+             'Today': [moment(), moment()],
+             'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+             'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+             'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+             'This Month': [moment().startOf('month'), , moment().endOf('month')],
+             'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+             'This Year': [moment().startOf('year'), moment()],
+             'Last Year': [moment().subtract(1, 'year').startOf('year'), moment().subtract(1, 'year').endOf('year')],
+             'From 2022 to Now': [moment('2022-01-01'), moment()]
+         },
+     
+     }, cb);
+     cb(moment('2024-08-01'), moment())
 
     var table = $('table#example').DataTable({
         responsive: true,
@@ -41,7 +66,7 @@
             },
             data: function(d) {
                 d.code = $('#code-filter').val();
-                d.created_at = $('#date-filter').val();
+                d.created_at = [start, end];
                 d.magasin = $('#magasin-filter').val();
             },
             beforeSend: function() {
@@ -50,14 +75,7 @@
             },
             complete: function() {
                 $('#loaderHolder').hide();
-                $(".row-checkbox").on('change', function() {
-                    console.log($('#shipbtn'));
-                    if ($(".row-checkbox:checked").length > 0)
-                        $('#shipbtn').show()
-                    else
-                        $('#shipbtn').hide()
-
-                })
+                
             }
         },
         columnDefs: [{
@@ -136,7 +154,7 @@
             </div>
         </div>
                                          </div>   
-                                         <a href='#' style="color: white;
+                                         <a href='/admin/parcels/edit/${row.id}' style="color: white;
                                 font-weight: bold; cursor: pointer;" class="btn btn-danger btn-sm" >
                                     <i class="fa-solid fa-pen-to-square"></i>          
                                 </a>
@@ -163,6 +181,14 @@
                 });
                 //   console.log(qrious);
             });
+            $(".row-checkbox").on('change', function() {
+                console.log($('#shipbtn'));
+                if ($(".row-checkbox:checked").length > 0)
+                    $('#shipbtn').show()
+                else
+                    $('#shipbtn').hide()
+
+            })
         }
 
     });
@@ -172,7 +198,8 @@
 
     $('#refresh-btn').on('click', function() {
         $('#code-filter').val('');
-        $('#date-filter').val('');
+        cb(moment('2024-08-01'), moment())
+
         $('#magasin-filter').val('');
         table.ajax.reload();
 

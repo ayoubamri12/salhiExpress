@@ -30,26 +30,25 @@
                             <i class="arrow ph-bold ph-caret-down"></i>
                         </a>
                         <ul class="sub-menu">
-                            <li>
+                            <li class="{{ request()->is('delivery/parcels/delivred') ? 'active' : '' }}">
                                 <a class="{{ request()->routeIs('parcels.delivred') ? 'active' : '' }}" href="{{route("parcels.delivred")}}">
-                                    <span class="text">Livre</span>
+                                    <span class="text">Marqué Livré</span>
                                 </a>
                             </li>
-                            <li>
+                            <li  class="{{ request()->is('delivery/parcels/other') ? 'active' : '' }}">
+                                <a href="{{route("parcels.other")}}">
+                                    <span class="text">Autres</span>
+                                </a>
+                            </li>
+                            <li  class="{{ request()->is('delivery/parcels/delayed') ? 'active' : '' }}">
                                 <a href="{{route("parcels.delayed")}}">
-                                    <span class="text">Annule&Reporte</span>
-                                </a>
-                            </li>
-                            
-                            <li>
-                                <a href="#">
-                                    <span class="text">Refuse</span>
+                                    <span class="text">Reporté</span>
                                 </a>
                             </li>
                         </ul>
                     </li>
-                    <li class="">
-                        <a href="{{ route('delivery.show') }}">
+                    <li class="{{ request()->routeIs('parcel.scan') ? 'active' : '' }}">
+                        <a href="{{ route('parcel.scan') }}">
                             <i class="fa-solid fa-qrcode"></i>
                             <span class="text">QR Code</span>
                         </a>

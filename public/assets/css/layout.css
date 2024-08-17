@@ -1,5 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900);
-
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&display=swap');
 .btn:focus {
     border-color: orange;
     box-shadow: 0 0 0 0.2rem rgba(255, 69, 0, 0.25);
@@ -97,7 +97,11 @@
     background-color: orange;
     z-index: 1000;
 }
-
+.sub-active{
+    color: #000;
+    background-color: orange;
+    z-index: 1000;
+}
 .menu ul li .icon {
     font-size: 20px;
 }

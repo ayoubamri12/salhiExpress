@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Coli;
+use App\Models\Complaint;
 use App\Models\Deliverymen;
 use App\Models\Region;
 use Illuminate\Http\Request;
@@ -12,7 +13,10 @@ class AdminConttroller extends Controller
     public function index()
     {
         $delmens = Deliverymen::all();
-        return view("admin.parcels", compact('delmens'));
+        $reporte = Complaint::where('status','Reporté')->get();
+        $annule = Complaint::where('status','Annulé')->get();
+        $refuse = Complaint::where('status','Refusé')->get();
+        return view("admin.parcels",  compact(['delmens','reporte','annule','refuse']));
     }
     public function show(){
         $colis = Coli::all();
@@ -27,6 +31,6 @@ class AdminConttroller extends Controller
     }
     public function free_parcels(){
         $delmens = Deliverymen::all();
-        return view("admin.free_parcels", compact('delmens'));
+        return view("admin.free_parcels", compact(['delmens']));
     }
 }

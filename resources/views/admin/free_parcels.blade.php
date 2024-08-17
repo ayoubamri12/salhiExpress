@@ -10,7 +10,11 @@
                 <input type="text" class="form-control" id="code-filter" placeholder="Code d'envoi">
             </div>
             <div class="col-md-3">
-                <input type="date" class="form-control" id="date-filter" placeholder="Date de creation">
+                <div id="reportrange"
+                style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%" class="form-control">
+                <i class="fa fa-calendar"></i>&nbsp;
+                <span></span> <i class="fa fa-caret-down"></i>
+            </div>
             </div>
 
             <div class="col-md-3">

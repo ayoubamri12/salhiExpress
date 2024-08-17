@@ -50,8 +50,10 @@
       </script>
   @endif
     <div class="mt-2 card mx-auto">
-        <div class="card-header" style="background-color: orange">
+        <div class="card-header p-3" style="background-color: orange;color:white;">
+           <h3>
             Create new parcel
+           </h3>
         </div>
         <div class="card-body">
             <form action="{{route("parcel.store")}}" method="POST" id="parcel-form">
@@ -107,7 +109,7 @@
                     <div id="dest-error" class="invalid-feedback"></div>
                 </div>
                 <!-- Submit button -->
-                <button type="submit" style="background-color: orange; cursor: pointer;"
+                <button type="submit" style="background-color: orange; cursor: pointer;color:white;"
                     class="btn btn-block mb-4">Ajouter</button>
             </form>
         </div>

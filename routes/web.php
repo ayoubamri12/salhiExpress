@@ -32,12 +32,16 @@ Route::middleware("auth")->group(function(){
     Route::get('/admin/parcels/all',[AdminConttroller::class,'index'])->name("admin.index");
     Route::get('/admin/parcels/free_parcels',[AdminConttroller::class,'free_parcels'])->name("admin.free_parcels");
     Route::get('/admin/parcels/create',[AdminConttroller::class,'create'])->name("parcel.create");
+    Route::get('/admin/parcels/edit/{parcel}',[ColisController::class,'edit'])->name("parcel.edit");
+    Route::post('/admin/parcels/edit/{parcel}',[ColisController::class,'updateParcel'])->name("parcel.update");
     Route::get('/admin/parcels/create/excel',[AdminConttroller::class,'create_with_excel'])->name("parcel.create_with_excel");
 
     Route::get('/delivery/home',[DeliveryController::class,'show'])->name("delivery.show");
     Route::post('/coli/status/{id}',[ColisController::class,'update'])->name("colis.status");
     Route::get('/delivery/parcels/delivred',[DeliveryController::class,"deliveredPrcels"])->name("parcels.delivred");
     Route::get('/delivery/parcels/delayed',[DeliveryController::class,"delayedPrcels"])->name("parcels.delayed");
+    Route::get('/delivery/parcels/other',[DeliveryController::class,"otherPrcels"])->name("parcels.other");
+    Route::get('/delivery/parcel/scan',[DeliveryController::class,"scan_parcel"])->name("parcel.scan");
 
     Route::get('/parcels/show/{code}',[ColisController::class,'show'])->name("parcels.show");
     Route::post('/parcels/store',[ColisController::class,'store'])->name("parcel.store");

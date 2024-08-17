@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Coli;
 use App\Models\Complaint;
 use App\Models\Deliverymen;
+use App\Models\Region;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -19,7 +20,7 @@ class ColisController extends Controller
         $parcel->destination = $req->destination;
         $parcel->phone_number = $req->phone_number;
         $parcel->Name = $req->Name;
-        $parcel->state = "Non paye";
+        $parcel->state = "Non payé";
         $parcel->status = "en cours";
         $parcel->price = $req->price;
         $parcel->magasin = $req->magasin;
@@ -33,6 +34,42 @@ class ColisController extends Controller
 
         return view("parcels.show", compact('parcel'));
     }
+    public function edit(Coli $parcel)
+    {
+        $regions = Region::all();
+        return view("admin.forms.edit-parcel", compact(['parcel', 'regions']));
+    }
+    public function updateParcel(Coli $parcel, Request $req)
+    {
+        $parcel->fill($req->input())->save();
+        return redirect()->back()->with("edited", "edited");
+    }
+
+    public function setItShiped(Request $request)
+    {
+        $selectedIds = $request->input('ids');
+        $delivery_id = $request->input('delivery_id');
+        foreach ($selectedIds as $id) {
+            $coli = Coli::findOrFail($id);
+            $coli->update(['deliverymen_id' => $delivery_id, "created_at" => Carbon::now()]);
+        }
+        return response()->json(['message' => 'Users updated successfully']);
+    }
+    public function update(Coli $id, Request $request)
+    {
+        $status = $request->input("status");
+        if ($status === 'livré')
+            $id->update(['status' => $status, "updated_at" => Carbon::today()]);
+        else {
+            Complaint::create([
+                "coli_id" => $id->id,
+                "comment" => $request->input("comment"),
+                "status" => $status,
+                "req_state" => 'not approved',
+            ]);
+        }
+        return to_route("delivery.show")->with("success", 'mmmmmm');
+    }
     public function filteredData(Request $request)
     {
         $parcels = Coli::query();
@@ -45,7 +82,7 @@ class ColisController extends Controller
         }
 
         if (!empty($request->input('created_at'))) {
-            $parcels->whereDate('created_at', $request->input('created_at'));
+            $parcels->whereBetween('created_at', [$request->input('created_at')[0], $request->input('created_at')[1]]);
         }
 
         if (!empty($request->input('state'))) {
@@ -59,51 +96,26 @@ class ColisController extends Controller
         if (!empty($request->input('magasin'))) {
             $parcels->where('magasin', 'like', '%' . $request->input('magasin') . '%');
         }
-        $parcels = $parcels->with(['complaint', 'deliverymen'])->where("deliverymen_id",'!=',NULL)->get();
+        $parcels = $parcels->with(['complaint', 'deliverymen'])->where("deliverymen_id", '!=', NULL)->get();
         return response()->json($parcels);
-    }
-    public function setItShiped(Request $request)
-{
-    $selectedIds = $request->input('ids');
-    $delivery_id = $request->input('delivery_id');
-    foreach($selectedIds as $id){
-        $coli=Coli::findOrFail($id);
-        $coli->update(['deliverymen_id'=>$delivery_id,"created_at"=>Carbon::now()]);
-    }
-    return response()->json(['message' => 'Users updated successfully']);
-}
-    public function update(Coli $id, Request $request)
-    {
-        $status = $request->input("status");
-        if ($status === 'Livre')
-            $id->update(['status' => $status, "updated_at" => Carbon::today()]);
-        else {
-            Complaint::create([
-                "coli_id" => $id->id,
-                "comment" => $request->input("comment"),
-                "status" => $status,
-                "req_state" => 'not approved',
-            ]);
-        }
-        return to_route("delivery.show")->with("success", 'mmmmmm');
     }
     public function free_parcel(Request $request)
     {
         $queryParcels = Coli::query();
-        if ($request->has('code') || $request->has('date')|| $request->has('magasin')) {
-            if (!empty($request->input('code'))) {
-                $queryParcels->where('code', 'like', '%' . $request->input('code') . '%');
-            }
-            if (!empty($request->input('created_at'))) {
-                $queryParcels->whereDate('created_at', $request->input('created_at'));
-            }
+        if (!empty($request->input('code'))) {
 
-            if (!empty($request->input('magasin'))) {
-                $queryParcels->where('magasin', 'like', '%' . $request->input('magasin') . '%');
-            }
-            $queryParcels = $queryParcels->with(['complaint'])->whereDoesntHave('deliverymen')->get();
-            return response()->json($queryParcels);
+            $queryParcels->where('code', 'like', '%' . $request->input('code') . '%');
         }
-       
+        if (!empty($request->input('created_at'))) {
+            $startDate = Carbon::parse($request->input('created_at')[0])->startOfDay();
+            $endDate = Carbon::parse($request->input('created_at')[1])->endOfDay();
+            $queryParcels->whereBetween('created_at', [$startDate, $endDate]);
+        }
+
+        if (!empty($request->input('magasin'))) {
+            $queryParcels->where('magasin', 'like', '%' . $request->input('magasin') . '%');
+        }
+        $queryParcels=$queryParcels->whereDoesntHave('deliverymen')->get();
+        return response()->json($queryParcels);
     }
 }

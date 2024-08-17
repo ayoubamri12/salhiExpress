@@ -67,6 +67,9 @@
 </style>
 <x-deliver-layout>
     <div style="width: 95%;" id="parent" class="mx-auto mt-5">
+        <div class="my-2">
+            <p  style="color: rgb(165, 165, 165)">Nombre de colis : {{ $colis->count() }} </p>
+        </div>
 
         @if ($colis->count() > 0)
             @foreach ($colis as $coli)

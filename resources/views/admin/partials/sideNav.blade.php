@@ -30,14 +30,14 @@ admin            </div>
                             <i class="arrow ph-bold ph-caret-down"></i>
                         </a>
                         <ul class="sub-menu">
-                            <li>
+                            <li  class="{{ request()->is('admin/parcels/all') ? 'active' : '' }}">
                                 <a href="{{route("admin.index")}}">
                                     <span class="text">Tout les colis</span>
                                 </a>
                             </li>
-                            <li>
+                            <li class="{{ request()->is('admin/parcels/free_parcels') ? 'active' : '' }}">
                                 <a href="{{route("admin.free_parcels")}}">
-                                    <span class="text">Libre</span>
+                                    <span class="text">Non expédiés</span>
                                 </a>
                             </li>
                             <li>
