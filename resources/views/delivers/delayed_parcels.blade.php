@@ -29,7 +29,6 @@
     </div>
     @if (session()->has('success'))
         <script>
-            document.querySelector("div#loaderHolder").style.display = "none"
             toastr.options = {
                 "closeButton": true,
                 "debug": false,
@@ -56,9 +55,8 @@
         </div>
         @if ($colis->count() > 0)
             @foreach ($colis as $coli)
-                @if (!$coli->complaint)
                     <div>
-                        <p style="color: rgb(165, 165, 165)">Reporté a : {{ $coli->delay }} :</p>
+                        <p style="color: rgb(165, 165, 165)">Reporté a : {{ $coli->delay }}</p>
                     </div>
 
                     <div class="card my-2">
@@ -145,7 +143,6 @@
                                                 <select class="form-control" name="status" data-size="4">
                                                     <option value="">Select Status</option>
                                                     <option value="livré">Livré</option>
-                                                    <option value="Reporté">Reporté</option>
                                                     <option value="Annulé">Annulé</option>
                                                     <option value="Refusé">Refusé</option>
                                                 </select>
@@ -168,19 +165,13 @@
                             </div>
                         </div>
                     </div>
-                @endif
             @endforeach
-        @else
-            <p class="alert alert-warning">no delayed parcels for today</p>
         @endif
         <p id="alrt" style="display: none;" class="alert alert-warning">no delayed parcels for today</p>
     </div>
 
     <script>
-        if ($("#parent").children().length === 1) {
-            $("p#alrt").css("display", "block")
-            console.log($("#parent").children().length);
-        }
+       
 
         $("select[name=status]").on("change", function() {
             if ($(this).val() === "Reporté" || $(this).val() === "Annulé" || $(this).val() ===

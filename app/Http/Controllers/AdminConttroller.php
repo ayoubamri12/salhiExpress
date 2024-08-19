@@ -13,9 +13,9 @@ class AdminConttroller extends Controller
     public function index()
     {
         $delmens = Deliverymen::all();
-        $reporte = Complaint::where('status','Reporté')->get();
-        $annule = Complaint::where('status','Annulé')->get();
-        $refuse = Complaint::where('status','Refusé')->get();
+        $reporte = Complaint::where('status','Reporté')->where("req_state","not approved")->get();
+        $annule = Complaint::where('status','Annulé')->where("req_state","not approved")->get();
+        $refuse = Complaint::where('status','Refusé')->where("req_state","not approved")->get();
         return view("admin.parcels",  compact(['delmens','reporte','annule','refuse']));
     }
     public function show(){

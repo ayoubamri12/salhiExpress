@@ -39,7 +39,7 @@ class ColisController extends Controller
         $regions = Region::all();
         return view("admin.forms.edit-parcel", compact(['parcel', 'regions']));
     }
-    public function updateParcel(Coli $parcel, Request $req)
+    public function update(Coli $parcel, Request $req)
     {
         $parcel->fill($req->input())->save();
         return redirect()->back()->with("edited", "edited");
@@ -55,21 +55,7 @@ class ColisController extends Controller
         }
         return response()->json(['message' => 'Users updated successfully']);
     }
-    public function update(Coli $id, Request $request)
-    {
-        $status = $request->input("status");
-        if ($status === 'livré')
-            $id->update(['status' => $status, "updated_at" => Carbon::today()]);
-        else {
-            Complaint::create([
-                "coli_id" => $id->id,
-                "comment" => $request->input("comment"),
-                "status" => $status,
-                "req_state" => 'not approved',
-            ]);
-        }
-        return to_route("delivery.show")->with("success", 'mmmmmm');
-    }
+    
     public function filteredData(Request $request)
     {
         $parcels = Coli::query();

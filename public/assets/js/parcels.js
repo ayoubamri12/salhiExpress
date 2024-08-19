@@ -147,9 +147,9 @@ var table = $('table#example').DataTable({
             render: function (data, type, row) {
                 return `            
                    
-                            ${row.status == 'livré' ? `<p class="badge badge-success">${row.status}</p>` : row.status == 'Annulé' ? `<p class="badge badge-danger">${row.status}</p>` : row.complaint && row.complaint.req_state == 'approved' ? `<p class="badge badge-warning">${row.status}</p>
-                                <p class="badge badge-outline-danger" style="color:orange;">comment :
-                                     ${row.complaint.comment} <br/>${row.delay} </p>
+                            ${row.status == 'livré' ? `<p class="badge badge-success">${row.status}</p>`  : row.complaint && row.complaint.req_state == 'approved' ? `<p class="badge badge-warning p-1">${row.status} <br/><br/>${row.status=="Reporté"&& "Date : "+ new Date(row.delay).toLocaleDateString()}</p>
+                                <small class="" style="color:gray;">comment :
+                                     ${row.complaint.comment}</small>
                                `: ` <p class="badge badge-primary">${row.status}</p>`
                     }
                            

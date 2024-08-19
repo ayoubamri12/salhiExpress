@@ -4,9 +4,14 @@
             font-size: 1.5em;
         }
 
-       .ctr{
-        width: 75%;
-       }
+        .ctr {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex: column;
+            justify-content: center;
+            align-items: center;
+        }
 
         #qr-code-result {
             font-size: 1em;
@@ -15,14 +20,46 @@
 </style>
 <x-deliver-layout>
     <div class="ctr">
-        <div class="card mt-5">
+        <div class="card">
             <div class="card-header" style="background-color: orange;">
-                <h1>Scan QR Code <i class="fa fa-qrcode"></i></h1>
+                <h3>Scan QR Code <i class="fa fa-qrcode"></i></h3>
             </div>
-            <div class="card-body">
-                <div id="qr-code-result"></div>
-                <div style="display: flex;justify-content: center;">
-                    <div id="qr-code-reader" style="width: 500px;"></div>
+            <div class="card-body d-flex justify-content-center">
+                <button type="button" class="btn"
+                    style="color: white;
+font-weight: bold; cursor: pointer; background-color:  rgb(83, 218, 42);"
+                    data-bs-toggle="modal" data-bs-target="#staticBackdrop5">
+                    <i class="fa fa-qrcode"></i> Scanning Qr Code
+                </button>
+
+                <!-- Modal -->
+                <div class="modal top fade" id="staticBackdrop5" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered text-center d-flex justify-content-center">
+                        <div class="modal-content w-100">
+                            <div class="modal-header">
+                                <button type="button" class="border-0 btn bg-light btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close" style="cursor: pointer;">
+                                    <i class="icon ph-bold ph-x"></i>
+
+                                </button>
+                            </div>
+                            <div class="modal-body p-4">
+                                <div class="row justify-content-center mb-4">
+                                    <h5 style="color:orange;"><i class="fa fa-qrcode"></i> Scan QR Code through camera or image</h5>
+                                </div>
+                                <div style="">
+
+                                    <div id="qr-code-result"></div>
+                                    <div style="box-shadow: 8px 8px gray; border-radius: 10px; display: flex;justify-content: center;">
+                                        <div id="qr-code-reader" style="width: 500px;"></div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

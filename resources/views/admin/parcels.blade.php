@@ -109,7 +109,7 @@
         font-family: FontAwesome;
         content: "\f0c7";
     }
-   
+
 
     @media (max-width: 650px) {
         .text-info {
@@ -135,7 +135,51 @@
 </style>
 <x-admin-layout>
     <div>
-
+        @if (session()->has('approving'))
+            @if (session('approving') === 'approved')
+                <script>
+                    toastr.options = {
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": true,
+                        "progressBar": true,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    };
+                    toastr.info("the parcel is delayed now !!");
+                </script>
+            @else
+                <script>
+                    toastr.options = {
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": true,
+                        "progressBar": true,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    };
+                    toastr.warning("the request has been rejected !!");
+                </script>
+            @endif
+        @endif
         <div id="loaderHolder" style="display: none" class="loading">
             <p class="loader"></p>
         </div>
@@ -220,71 +264,72 @@
 
                                     <div>
                                         @if ($reporte->count() > 0)
-                                        <div style="overflow-x: scroll;">
+                                            <div style="overflow-x: scroll;">
 
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <tr class="text-center">
-                                                        <th scope="col">#</th>
-                                                        <th scope="col">Livreur</th>
-                                                        <th scope="col">Destinataire</th>
-                                                        <th scope="col">code</th>
-                                                        <th scope="col">magasin</th>
-                                                        <th scope="col">Commentaire</th>
-                                                        <th scope="col">Status</th>
-                                                        <th scope="col">Date</th>
-                                                        <th scope="col">Actions</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($reporte as $r)
+                                                <table class="table table-bordered">
+                                                    <thead>
                                                         <tr class="text-center">
-                                                            <td>
-                                                                {{ $r->id }}
-                                                            </td>
-                                                            <td style="width: 200px">
-                                                                <small
-                                                                    style="border-radius: 10px;color:white;background-color: #4ce0a3;  padding:5px;">
-                                                                    <i class="fa-solid fa-motorcycle"></i>
-                                                                    {{ $r->coli->deliverymen->firtsName . ' ' . $r->coli->deliverymen->lastName }}
-                                                                </small>
-                                                            </td>
-                                                            <td>
-                                                                {{$r->coli->Name}}
-                                                            </td>
-                                                            <td>
-                                                                {{$r->coli->code}}
-                                                            </td>
-                                                            <td>
-                                                                {{$r->coli->magasin}}
-                                                            </td>
-                                                            <td>
-                                                                <textarea readonly cols="20" rows="2" class="form-control">
-                                                        {{ $r->comment }}
-                                                      </textarea>
-                                                            </td>
-                                                            <td>
-                                                                <small
-                                                                    style="border-radius: 10px;border:1px solid rgb(238, 201, 38) ;background-color: #daee6a;font-weight: 700  ;padding:5px;">
-                                                                    {{ $r->status }}
-                                                                </small>
-    
-                                                            </td>
-                                                            <td>
-                                                                {{ $r->created_at }}
-                                                            </td>
-                                                            <td class="actions">
-                                                                <a href="#" class="button" id="accept"><span>
-                                                                        accepter</span></a>
-                                                                <a href="#" class="button" id="reject"></><span>
-                                                                        refuser</span></a>
-                                                            </td>
+                                                          
+                                                            <th scope="col">Livreur</th>
+                                                            <th scope="col">Destinataire</th>
+                                                            <th scope="col">code</th>
+                                                            <th scope="col">magasin</th>
+                                                            <th scope="col">Commentaire</th>
+                                                            <th scope="col">Status</th>
+                                                            <th scope="col">Date</th>
+                                                            <th scope="col">Actions</th>
                                                         </tr>
-                                                    @endforeach
-    
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($reporte as $r)
+                                                            
+                                                        <tr class="text-center">
+                                                                
+                                                                <td style="width: 200px">
+                                                                    <small
+                                                                        style="border-radius: 10px;color:white;background-color: #4ce0a3;  padding:5px;">
+                                                                        <i class="fa-solid fa-motorcycle"></i>
+                                                                        {{ $r->coli->deliverymen->firtsName . ' ' . $r->coli->deliverymen->lastName }}
+                                                                    </small>
+                                                                </td>
+                                                                <td>
+                                                                    {{ $r->coli->Name }}
+                                                                </td>
+                                                                <td>
+                                                                    {{ $r->coli->code }}
+                                                                </td>
+                                                                <td>
+                                                                    {{ $r->coli->magasin }}
+                                                                </td>
+                                                                <td>
+                                                                    <textarea readonly cols="20" rows="2" class="form-control">
+                                                                        {{ $r->comment }}
+                                                      </textarea>
+                                                                </td>
+                                                                <td>
+                                                                    <small
+                                                                        style="border-radius: 10px;border:1px solid rgb(238, 201, 38) ;background-color: #daee6a;font-weight: 700  ;padding:5px;">
+                                                                        {{ $r->status }}
+                                                                    </small>
+
+                                                                </td>
+                                                                <td>
+                                                                    {{ $r->created_at }}
+                                                                </td>
+                                                                <td class="actions">
+                                                                    <a href="{{ route('complaint.approving', $r->id) }}"
+                                                                        class="button" id="accept"><span>
+                                                                            accepter</span></a>
+                                                                    <a href="{{ route('complaint.disapproving', $r->id) }}"
+                                                                        class="button" id="reject"></><span>
+                                                                            refuser</span></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         @else
                                             <div class="wrapper-info">
                                                 <div class="card">
@@ -334,70 +379,71 @@
 
                                     <div>
                                         @if ($annule->count() > 0)
-                                        <div style="overflow-x: scroll">
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <tr class="text-center">
-                                                        <th scope="col">#</th>
-                                                        <th scope="col">Livreur</th>
-                                                        <th scope="col">Destinataire</th>
-                                                        <th scope="col">code</th>
-                                                        <th scope="col">magasin</th>
-                                                        <th scope="col">Commentaire</th>
-                                                        <th scope="col">Status</th>
-                                                        <th scope="col">Date</th>
-                                                        <th scope="col">Actions</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($refuse as $r)
+                                            <div style="overflow-x: scroll">
+                                                <table class="table table-bordered">
+                                                    <thead>
                                                         <tr class="text-center">
-                                                            <td>
-                                                                {{ $r->id }}
-                                                            </td>
-                                                            <td style="width: 200px;">
-                                                                <small
-                                                                    style="border-radius: 10px;color:white;background-color: #4ce0a3;  padding:5px;">
-                                                                    <i class="fa-solid fa-motorcycle"></i>
-                                                                    {{ $r->coli->deliverymen->firtsName . ' ' . $r->coli->deliverymen->lastName }}
-                                                                </small>
-                                                            </td>
-                                                            <td>
-                                                                {{$r->coli->Name}}
-                                                            </td>
-                                                            <td>
-                                                                {{$r->coli->code}}
-                                                            </td>
-                                                            <td>
-                                                                {{$r->coli->magasin}}
-                                                            </td>
-                                                            <td>
-                                                                <textarea readonly cols="20" rows="2" class="form-control">
+                                                          
+                                                            <th scope="col">Livreur</th>
+                                                            <th scope="col">Destinataire</th>
+                                                            <th scope="col">code</th>
+                                                            <th scope="col">magasin</th>
+                                                            <th scope="col">Commentaire</th>
+                                                            <th scope="col">Status</th>
+                                                            <th scope="col">Date</th>
+                                                            <th scope="col">Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($refuse as $r)
+                                                            
+                                                        <tr class="text-center">
+                                                                
+                                                                <td style="width: 200px;">
+                                                                    <small
+                                                                        style="border-radius: 10px;color:white;background-color: #4ce0a3;  padding:5px;">
+                                                                        <i class="fa-solid fa-motorcycle"></i>
+                                                                        {{ $r->coli->deliverymen->firtsName . ' ' . $r->coli->deliverymen->lastName }}
+                                                                    </small>
+                                                                </td>
+                                                                <td>
+                                                                    {{ $r->coli->Name }}
+                                                                </td>
+                                                                <td>
+                                                                    {{ $r->coli->code }}
+                                                                </td>
+                                                                <td>
+                                                                    {{ $r->coli->magasin }}
+                                                                </td>
+                                                                <td>
+                                                                    <textarea readonly cols="20" rows="2" class="form-control">
                                                         {{ $r->comment }}
                                                       </textarea>
-                                                            </td>
-                                                            <td>
-                                                                <small
-                                                                    style="border-radius: 10px;border:1px solid rgb(238, 201, 38) ;background-color: #daee6a;font-weight: 700  ;padding:5px;">
-                                                                    {{ $r->status }}
-                                                                </small>
-    
-                                                            </td>
-                                                            <td>
-                                                                {{ $r->created_at }}
-                                                            </td>
-                                                            <td class="actions">
-                                                                <a href="#" class="button" id="accept"><span>
-                                                                        accepter</span></a>
-                                                                <a href="#" class="button" id="reject"></><span>
-                                                                        refuser</span></a>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-    
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                                </td>
+                                                                <td>
+                                                                    <small
+                                                                        style="border-radius: 10px;border:1px solid rgb(238, 201, 38) ;background-color: #daee6a;font-weight: 700  ;padding:5px;">
+                                                                        {{ $r->status }}
+                                                                    </small>
+
+                                                                </td>
+                                                                <td>
+                                                                    {{ $r->created_at }}
+                                                                </td>
+                                                                <td class="actions">
+                                                                    <a href="{{ route('complaint.approving', $r->id) }}"
+                                                                        class="button" id="accept"><span>
+                                                                            accepter</span></a>
+                                                                    <a href="{{ route('complaint.disapproving', $r->id) }}"
+                                                                        class="button" id="reject"></><span>
+                                                                            refuser</span></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         @else
                                             <div class="wrapper-info">
                                                 <div class="card">
@@ -447,70 +493,71 @@
 
                                     <div>
                                         @if ($refuse->count() > 0)
-                                        <div style="overflow-x: scroll">
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <tr class="text-center">
-                                                        <th scope="col">#</th>
-                                                        <th scope="col">Livreur</th>
-                                                        <th scope="col">Destinataire</th>
-                                                        <th scope="col">code</th>
-                                                        <th scope="col">magasin</th>
-                                                        <th scope="col">Commentaire</th>
-                                                        <th scope="col">Status</th>
-                                                        <th scope="col">Date</th>
-                                                        <th scope="col">Actions</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($refuse as $r)
+                                            <div style="overflow-x: scroll">
+                                                <table class="table table-bordered">
+                                                    <thead>
                                                         <tr class="text-center">
-                                                            <td>
-                                                                {{ $r->id }}
-                                                            </td>
-                                                            <td style="width: 200px;">
-                                                                <small
-                                                                    style="border-radius: 10px;color:white;background-color: #4ce0a3;  padding:5px;">
-                                                                    <i class="fa-solid fa-motorcycle"></i>
-                                                                    {{ $r->coli->deliverymen->firtsName . ' ' . $r->coli->deliverymen->lastName }}
-                                                                </small>
-                                                            </td>
-                                                            <td>
-                                                                {{$r->coli->Name}}
-                                                            </td>
-                                                            <td>
-                                                                {{$r->coli->code}}
-                                                            </td>
-                                                            <td>
-                                                                {{$r->coli->magasin}}
-                                                            </td>
-                                                            <td>
-                                                                <textarea readonly cols="20" rows="2" class="form-control">
+                                                          
+                                                            <th scope="col">Livreur</th>
+                                                            <th scope="col">Destinataire</th>
+                                                            <th scope="col">code</th>
+                                                            <th scope="col">magasin</th>
+                                                            <th scope="col">Commentaire</th>
+                                                            <th scope="col">Status</th>
+                                                            <th scope="col">Date</th>
+                                                            <th scope="col">Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($refuse as $r)
+                                                            
+                                                        <tr class="text-center">
+                                                                
+                                                                <td style="width: 200px;">
+                                                                    <small
+                                                                        style="border-radius: 10px;color:white;background-color: #4ce0a3;  padding:5px;">
+                                                                        <i class="fa-solid fa-motorcycle"></i>
+                                                                        {{ $r->coli->deliverymen->firtsName . ' ' . $r->coli->deliverymen->lastName }}
+                                                                    </small>
+                                                                </td>
+                                                                <td>
+                                                                    {{ $r->coli->Name }}
+                                                                </td>
+                                                                <td>
+                                                                    {{ $r->coli->code }}
+                                                                </td>
+                                                                <td>
+                                                                    {{ $r->coli->magasin }}
+                                                                </td>
+                                                                <td>
+                                                                    <textarea readonly cols="20" rows="2" class="form-control">
                                                         {{ $r->comment }}
                                                       </textarea>
-                                                            </td>
-                                                            <td>
-                                                                <small
-                                                                    style="border-radius: 10px;border:1px solid rgb(238, 201, 38) ;background-color: #daee6a;font-weight: 700  ;padding:5px;">
-                                                                    {{ $r->status }}
-                                                                </small>
+                                                                </td>
+                                                                <td>
+                                                                    <small
+                                                                        style="border-radius: 10px;border:1px solid rgb(238, 201, 38) ;background-color: #daee6a;font-weight: 700  ;padding:5px;">
+                                                                        {{ $r->status }}
+                                                                    </small>
 
-                                                            </td>
-                                                            <td>
-                                                                {{ $r->created_at }}
-                                                            </td>
-                                                            <td class="actions">
-                                                                <a href="#" class="button" id="accept"><span>
-                                                                        accepter</span></a>
-                                                                <a href="#" class="button" id="reject"></><span>
-                                                                        refuser</span></a>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
+                                                                </td>
+                                                                <td>
+                                                                    {{ $r->created_at }}
+                                                                </td>
+                                                                <td class="actions">
+                                                                    <a href="{{ route('complaint.approving', $r->id) }}"
+                                                                        class="button" id="accept"><span>
+                                                                            accepter</span></a>
+                                                                    <a href="{{ route('complaint.disapproving', $r->id) }}"
+                                                                        class="button" id="reject"></><span>
+                                                                            refuser</span></a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
 
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         @else
                                             <div class="wrapper-info">
                                                 <div class="card">

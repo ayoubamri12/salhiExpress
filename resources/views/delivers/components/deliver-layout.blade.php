@@ -71,6 +71,8 @@
         });
 
         function checkScreenSize() {
+            $(".menu-btn").show()
+
             let windowWidth = $(window).width();
             $(".sidebar").removeClass("smallScreen");
             $(".sidebar").removeClass("active");
@@ -81,6 +83,7 @@
             if (windowWidth <= 500) {
                 $(".sidebar").addClass("active");
                 $(".containercss").addClass("actived");
+                $(".menu-btn").hide()
             }
 
         }
