@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('complaints', function (Blueprint $table) {
+        Schema::create('tracked_parcels', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("coli_id");
-            $table->string("comment");
+            $table->string("code");
+            $table->string("state");
             $table->string("status");
+            $table->string("infos");
+            $table->string("action_by");
+            $table->unsignedBigInteger("coli_id")->nullable();
             $table->foreign("coli_id")->references("id")->on("colis")->onDelete("cascade");
             $table->timestamps();
         });
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('complaints');
+        Schema::dropIfExists('tracked_parcels');
     }
 };

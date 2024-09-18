@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('complaints', function (Blueprint $table) {
-            $table->string("req_state");
+        Schema::create('returns', function (Blueprint $table) {
+            $table->id();
+            $table->string("reference");
+            $table->string("city");
+            $table->string("status");
+            $table->timestamp("reception_date");
+            $table->timestamps();
         });
     }
 
@@ -21,8 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('complaints', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('returns');
     }
 };

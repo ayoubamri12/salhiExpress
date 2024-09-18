@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('colis', function (Blueprint $table) {
             $table->id();
+            $table->string("code");
             $table->string("destination");
             $table->string("phone_number");
             $table->string("Name");
@@ -21,8 +22,17 @@ return new class extends Migration
             $table->string("price");
             $table->string("magasin");
             $table->string("qr_code");
+            $table->string("adress");
+            $table->string("accessibility");
+            $table->string("changable");
+            $table->timestamp("shipping_date");
+            $table->timestamp("delay");
             $table->unsignedBigInteger("deliverymen_id")->nullable();
+            $table->unsignedBigInteger("return_id")->nullable();
+            $table->unsignedBigInteger("payment_id")->nullable();
             $table->foreign("deliverymen_id")->references("id")->on("deliverymens")->onDelete("cascade");
+            $table->foreign("return_id")->references("id")->on("returns")->onDelete("cascade");
+            $table->foreign("payment_id")->references("id")->on("payments")->onDelete("cascade");
             $table->timestamps();
         });
     }

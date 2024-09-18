@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class DeliveryController extends Controller
 {
     public function show(){
-        $colis = Coli::has("deliverymen")->whereDoesntHave("complaint")->where("deliverymen_id",auth()->user()->deliverymen->id)->where("status","en cours")->get();
+        $colis = Coli::has("deliverymen")->whereDoesntHave("complaint")->where("deliverymen_id",auth()->user()->deliverymen->id)->where("status","New Parcel")->get();
         return view("delivers.dashboard",compact("colis"));
     }
     public function deliveredPrcels()

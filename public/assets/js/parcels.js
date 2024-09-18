@@ -111,7 +111,7 @@ var table = $('table#example').DataTable({
             }
         },
         {
-            data: 'created_at',
+            data: 'shipping_date',
             render: function (data, type, row) {
                 var createdAt = new Date(data);
                 return createdAt.toLocaleDateString();

@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('colis', function (Blueprint $table) {
-            $table->string("code")->after("id");
+        Schema::create('payments', function (Blueprint $table) {
+            $table->id();
+            $table->string("reference");
+            $table->string("zone");
+            $table->string("status");
+            $table->timestamp("updating_date");
+            $table->timestamps();
         });
     }
 
@@ -21,8 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('colis', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('payments');
     }
 };

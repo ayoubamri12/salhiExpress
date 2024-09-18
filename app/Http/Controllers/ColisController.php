@@ -21,10 +21,14 @@ class ColisController extends Controller
         $parcel->phone_number = $req->phone_number;
         $parcel->Name = $req->Name;
         $parcel->state = "Non payé";
-        $parcel->status = "en cours";
+        $parcel->status = "New Parcel";
         $parcel->price = $req->price;
         $parcel->magasin = $req->magasin;
         $parcel->qr_code = $qrCodePath;
+        $parcel->adress = $req->adress;
+        $parcel->accessibility = $req->accessable ?? "accessible";
+        $parcel->changable = $req->changeable ?? "unchangeable";
+
         $parcel->save();
         return to_route("parcel.create")->with("created", 'item');
     }
@@ -51,7 +55,7 @@ class ColisController extends Controller
         $delivery_id = $request->input('delivery_id');
         foreach ($selectedIds as $id) {
             $coli = Coli::findOrFail($id);
-            $coli->update(['deliverymen_id' => $delivery_id, "created_at" => Carbon::now()]);
+            $coli->update(['deliverymen_id' => $delivery_id, "shipping_date" => Carbon::now()]);
         }
         return response()->json(['message' => 'Users updated successfully']);
     }

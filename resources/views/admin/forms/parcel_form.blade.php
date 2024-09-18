@@ -13,6 +13,9 @@
         font-size: 0.875em;
         margin-top: 0.25rem;
     }
+     .active{
+        color:orange;
+    }
 </style>
 <x-admin-layout>
 
@@ -91,12 +94,23 @@
                 </div>
 
                 <!-- Email input -->
-                <div class="form-outline mb-4">
-                    <input type="number" name="price" id="price" class="form-control"  />
-                    <label class="form-label" for="price">Prix</label>
-                    <div id="price-error" class="invalid-feedback"></div>
+                <div class="row mb-4">
+                    <div class="col">
+                        <div class="form-outline mb-4">
+                            <input type="number" name="price" id="price" class="form-control"  />
+                            <label class="form-label" for="price">Prix</label>
+                            <div id="price-error" class="invalid-feedback"></div>
+                        </div>        
+                    </div>
+                    <div class="col">
+                        <div class="form-outline mb-4">
+                            <input type="number" name="adress" id="adress" class="form-control"  />
+                            <label class="form-label" for="price">Adresse</label>
+                            <div id="adress-error" class="invalid-feedback"></div>
+                        </div>
+        
+                    </div>
                 </div>
-
                 <!-- Number input -->
                 <div class="form-outline mb-4">
                     <select name="destination" class="form-control" id="dest" >
@@ -108,6 +122,18 @@
                     <label class="form-label" for="dest">Destination</label>
                     <div id="dest-error" class="invalid-feedback"></div>
                 </div>
+                   
+                       <div class="">
+                        <div class="form-outline mb-4">
+                            <input type="checkbox" name="accessable" id="accessable" value="unaccessible"/> Interdit d&apos;ouvrir le colis
+                            <label for="price"></label>
+                        </div>        
+                  
+                        <div class="form-outline mb-4">
+                            <input type="checkbox" name="changeable" value="changeable" id="changeable" /> Colis a remplacer
+                        </div>
+                       </div>
+        
                 <!-- Submit button -->
                 <button type="submit" style="background-color: orange; cursor: pointer;color:white;"
                     class="btn btn-block mb-4">Ajouter</button>
@@ -129,6 +155,11 @@
             if ($('#code').val() === '') {
                 $('#code').addClass('is-invalid');
                 $('#code-error').text('Please enter a code.');
+                isValid = false;
+            }
+            if ($('#adress').val() === '') {
+                $('#adress').addClass('is-invalid');
+                $('#adress-error').text('Please enter a adress.');
                 isValid = false;
             }
             if ($('#magasin').val() === '') {

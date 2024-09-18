@@ -31,7 +31,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name("logout");
 Route::middleware("admin-auth")->group(function () {
     Route::get('/admin/dashboard', [AdminConttroller::class, 'show'])->name("admin.show");
     Route::get('/admin/parcels/all', [AdminConttroller::class, 'index'])->name("admin.index");
-    Route::get('/admin/parcels/free_parcels', [AdminConttroller::class, 'free_parcels'])->name("admin.free_parcels");
+    Route::get('/admin/parcels/unshipped', [AdminConttroller::class, 'free_parcels'])->name("admin.free_parcels");
     Route::get('/admin/parcels/create', [AdminConttroller::class, 'create'])->name("parcel.create");
     Route::get('/admin/parcels/edit/{parcel}', [ColisController::class, 'edit'])->name("parcel.edit");
     Route::post('/admin/parcels/edit/{parcel}', [ColisController::class, 'update'])->name("parcel.update");

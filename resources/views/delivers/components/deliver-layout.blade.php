@@ -37,6 +37,9 @@
             @include('delivers.layout.partials.sidebar')
         </div>
         <div class="">
+            <div style="display: none;" id="menu-holder" class="justify-content-start mb-1 p-1">
+                <button id="show-menu" class="btn border-0 bg-light"><i class="fa-solid fa-bars"></i></button>
+            </div>
             {{ $slot }}
         </div>
     </div>
@@ -72,21 +75,38 @@
 
         function checkScreenSize() {
             $(".menu-btn").show()
+            $("#menu-holder").hide()
+            $(".sidebar").removeClass("hide");
+            $(".sidebar").removeClass("showcss");
 
             let windowWidth = $(window).width();
             $(".sidebar").removeClass("smallScreen");
             $(".sidebar").removeClass("active");
             $(".containercss").removeClass("actived");
+            $(".containercss").removeClass("notactived");
 
             if (windowWidth < 800)
                 $(".sidebar").addClass("smallScreen");
             if (windowWidth <= 500) {
                 $(".sidebar").addClass("active");
-                $(".containercss").addClass("actived");
+                $(".containercss").addClass("notactived");
                 $(".menu-btn").hide()
+                $(".sidebar").addClass("hide")
+                
+                $("#menu-holder").css({
+                    display: "flex",
+                })
             }
 
         }
+        $("#show-menu").click(() => {
+            $(".sidebar").toggleClass("showcss")
+                $(".sidebar").toggleClass("hide")
+            $(".containercss").toggleClass("actived");
+            $(".containercss").toggleClass("notactived");
+
+        })
+
     });
 </script>
 

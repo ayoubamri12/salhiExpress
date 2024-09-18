@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('companies', function (Blueprint $table) {
+        Schema::create('complaints', function (Blueprint $table) {
             $table->id();
-            $table->string('companyName');
-            $table->string('approval');
-            $table->unsignedBigInteger("client_id");
-            $table->foreign("client_id")->references("id")->on("clients")->onDelete("cascade");
+            $table->unsignedBigInteger("coli_id");
+            $table->string("comment");
+            $table->string("status");
+            $table->string("req_state");
+            $table->foreign("coli_id")->references("id")->on("colis")->onDelete("cascade");
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('company');
+        Schema::dropIfExists('complaints');
     }
 };

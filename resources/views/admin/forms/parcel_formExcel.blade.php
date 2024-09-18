@@ -110,6 +110,9 @@
         border: 0;
         transition: all .2s ease;
     }
+    .active{
+        color:orange;
+    }
 </style>
 <x-admin-layout>
     <nav  class="navbar mt-1 bg-body-tertiary w-100">
