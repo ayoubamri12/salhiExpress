@@ -4,10 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminUserAuth
+class AdminAuthMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,11 +15,7 @@ class AdminUserAuth
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->type === 'admin') {
-            return $next($request);
-        }
-
-        // If the user is not an admin, redirect them to the login page
-        return redirect()->route('login');
+        return $next($request);
     }
+    
 }

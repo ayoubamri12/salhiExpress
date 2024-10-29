@@ -1,0 +1,16 @@
+.main-datatable {
+    border-top: 4px solid orange;
+    border-radius: 2px;
+    box-shadow: 0px 3px 3px rgb(175, 175, 175);
+    background-color: white;
+    padding: 55px;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.loading {
+    /* Loader styling */
+}

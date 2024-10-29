@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string("accessibility");
             $table->string("changable");
             $table->timestamp("shipping_date");
-            $table->timestamp("delay");
+            $table->timestamp("delay")->nullable(); // Allow null values
             $table->unsignedBigInteger("deliverymen_id")->nullable();
             $table->unsignedBigInteger("return_id")->nullable();
             $table->unsignedBigInteger("payment_id")->nullable();

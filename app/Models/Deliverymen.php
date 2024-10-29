@@ -8,10 +8,28 @@ use Illuminate\Database\Eloquent\Model;
 class Deliverymen extends Model
 {
     use HasFactory;
-    public function user(){
+
+    protected $fillable = [
+        'firstName',
+        'lastName',
+        'region_id',
+        'user_id',
+        'num', 
+    ];
+
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
-    public function colis(){
-        return $this->hasMany(Coli::class);
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
     }
+
+    public function colis()
+    {
+        return $this->hasMany(Coli::class, 'deliverymen_id');
+    }
+    
 }

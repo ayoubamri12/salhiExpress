@@ -220,10 +220,10 @@
             <div class="col-md-3 mt-1">
                 <select class="form-control" id="delivery-filter">
                     <option value="">Liveur</option>
-                    @foreach ($delmens as $delmen)
-                        <option value="{{ $delmen->id }}">
-                            {{ $delmen->firtsName . ' ' . $delmen->lastName }}</option>
-                    @endforeach
+                    @foreach ($deliverymen as $delmen)
+    <option value="{{ $delmen->id }}">
+        {{ $delmen->firstName . ' ' . $delmen->lastName }}</option>
+@endforeach   
                 </select>
             </div>
 
@@ -616,3 +616,4 @@
 <script src="{{ asset('assets/js/parcels.js') }}"></script>
 
 <script></script>
+                    

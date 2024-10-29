@@ -6,7 +6,7 @@
         background-repeat: no-repeat;
         background-position: right calc(0.375em + 0.1875rem) center;
         background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
-    }
+    }               
 
     .invalid-feedback {
         color: #dc3545;
@@ -102,15 +102,21 @@
                             <div id="price-error" class="invalid-feedback"></div>
                         </div>        
                     </div>
-                    <div class="col">
+                    <!-- <div class="col">
                         <div class="form-outline mb-4">
-                            <input type="number" name="adress" id="adress" class="form-control"  />
-                            <label class="form-label" for="price">Adresse</label>
+                            <input type="text" name="adress" id="adress" class="form-control"  />
+                            <label class="form-label" for="adress">Adresse</label>
                             <div id="adress-error" class="invalid-feedback"></div>
                         </div>
         
-                    </div>
+                    </div> -->
+                    
                 </div>
+                <div class="form-outline mb-4">
+                            <input type="text" name="adress" id="adress" class="form-control"  />
+                            <label class="form-label" for="adress">Adresse</label>
+                            <div id="adress-error" class="invalid-feedback"></div>
+                        </div>
                 <!-- Number input -->
                 <div class="form-outline mb-4">
                     <select name="destination" class="form-control" id="dest" >

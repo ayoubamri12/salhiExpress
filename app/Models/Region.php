@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Region extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['lib']; // Add this to allow mass assignment
 }

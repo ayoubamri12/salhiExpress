@@ -323,7 +323,6 @@
 </style>
 <x-admin-layout>
 
-
     <div>
         <!-- Simplicity is an acquired taste. - Katharine Gerould -->
         <div class="p-30">
@@ -347,8 +346,8 @@
                                 <thead>
                                     <tr>
                                         <th><input type="checkbox" id="selectAll"></th>
-                                        
-                                        <th >ID</th>
+
+                                        <th>ID</th>
                                         <th>Nom</th>
                                         <th>Vile</th>
                                         <th>Telephone</th>
@@ -359,17 +358,26 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($colis as $coli)
-                                        <tr>
+                                    <tr>
                                         <td><input type="checkbox" class="row-checkbox"></td>
-    
-                                            <td>{{ $coli->id }}</td>
-                                            <td>{{ $coli->Name }}</td>
-                                            <td>{{ $coli->destination }}</td>
-                                            <td>{{ $coli->phone_number }}</td>
-                                            <td>{{ $coli->state }}</td>
-                                            <td>{{ $coli->status }}</td>
-                                            <td><a href="" class="btn btn-danger">btn</a></td>
-                                        </tr>
+
+                                        <td>{{ $coli->id }}</td>
+                                        <td>{{ $coli->Name }}</td>
+                                        <td>{{ $coli->destination }}</td>
+                                        <td>{{ $coli->phone_number }}</td>
+                                        <td>{{ $coli->state }}</td>
+                                        <td>{{ $coli->status }}</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                                    Actions
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                    </tr>
                                     @endforeach
                                 </tbody>
                             </table>
@@ -381,60 +389,65 @@
 
     </div>
 
-<script>
-   	
-       var table = $('table#example').DataTable({
-    responsive: true,
-    columnDefs: [
-        { orderable: false, targets: [0] }
-    ],
-    order: [[1, 'asc']], // Sort by the second column (index 1) in ascending order
-    paging: true,
-    pageLength: 10,
-    lengthMenu: [[10, 25, 50, -1], [10, 25, 50, 'All']],
-    pagingType: 'simple_numbers',
-    searching: false
-});
+    <script>
+        var table = $('table#example').DataTable({
+            responsive: true,
+            columnDefs: [{
+                orderable: false,
+                targets: [0]
+            }],
+            order: [
+                [1, 'asc']
+            ], // Sort by the second column (index 1) in ascending order
+            paging: true,
+            pageLength: 10,
+            lengthMenu: [
+                [10, 25, 50, -1],
+                [10, 25, 50, 'All']
+            ],
+            pagingType: 'simple_numbers',
+            searching: false
+        });
 
-            // Select all functionality
-            $('#selectAll').on('click', function() {
-                var rows = table.rows({ 'search': 'applied' }).nodes();
-                $('input[type="checkbox"]', rows).prop('checked', this.checked);
-            });
+        // Select all functionality
+        $('#selectAll').on('click', function() {
+            var rows = table.rows({
+                'search': 'applied'
+            }).nodes();
+            $('input[type="checkbox"]', rows).prop('checked', this.checked);
+        });
 
-            // Checkbox row selection
-            $('#example tbody').on('change', 'input.row-checkbox', function() {
-                if (!this.checked) {
-                    var el = $('#selectAll').get(0);
-                    if (el && el.checked && ('indeterminate' in el)) {
-                        el.indeterminate = true;
-                    }
+        // Checkbox row selection
+        $('#example tbody').on('change', 'input.row-checkbox', function() {
+            if (!this.checked) {
+                var el = $('#selectAll').get(0);
+                if (el && el.checked && ('indeterminate' in el)) {
+                    el.indeterminate = true;
                 }
-            });
+            }
+        });
 
-          /*  // Make rows draggable
-            $(".draggable").draggable({
-                helper: "clone",
-                start: function(event, ui) {
-                    $(this).addClass("dragging");
-                },
-                stop: function(event, ui) {
-                    $(this).removeClass("dragging");
-                }
-            });
+        /*  // Make rows draggable
+          $(".draggable").draggable({
+              helper: "clone",
+              start: function(event, ui) {
+                  $(this).addClass("dragging");
+              },
+              stop: function(event, ui) {
+                  $(this).removeClass("dragging");
+              }
+          });
 
-            // Make table sortable
-            $('#example tbody').sortable({
-                items: '.draggable',
-                cursor: 'move',
-                opacity: 0.6,
-                update: function(event, ui) {
-                    var order = $(this).sortable('toArray', { attribute: 'data-id' });
-                    // Here, you can handle the new order
-                    console.log(order);
-                }
-            }).disableSelection();*/
-       
-</script>
+          // Make table sortable
+          $('#example tbody').sortable({
+              items: '.draggable',
+              cursor: 'move',
+              opacity: 0.6,
+              update: function(event, ui) {
+                  var order = $(this).sortable('toArray', { attribute: 'data-id' });
+                  // Here, you can handle the new order
+                  console.log(order);
+              }
+          }).disableSelection();*/
+    </script>
 </x-admin-layout>
-

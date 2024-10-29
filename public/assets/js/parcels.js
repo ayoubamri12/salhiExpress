@@ -29,6 +29,71 @@
      $(event.currentTarget).toggleClass('focus');
  }*/
 let start, end;
+
+function showParcelDetails(code) {
+    $.ajax({
+        url: `/parcels/${code}`, // Adjust this to match your route for showing parcel details
+        method: 'GET',
+        success: function(data) {
+            console.log('Parcel details:', data);
+            if (data) {
+                const detailsHtml = `
+                    <p><strong>Code:</strong> ${data.code}</p>
+                    <p><strong>Destination:</strong> ${data.destination}</p>
+                    <p><strong>Phone Number:</strong> ${data.phone_number}</p>
+                    <p><strong>Name:</strong> ${data.name}</p>
+                    <p><strong>State:</strong> ${data.state}</p>
+                    <p><strong>Status:</strong> ${data.status}</p>
+                    <p><strong>Price:</strong> ${data.price}</p>
+                    <p><strong>Store:</strong> ${data.magasin}</p>
+                    <p><strong>Address:</strong> ${data.address}</p>
+                    <p><strong>Accessibility:</strong> ${data.accessibility}</p>
+                    <p><strong>Changeable:</strong> ${data.changable}</p>
+                    <p><strong>Shipping Date:</strong> ${data.shipping_date ? new Date(data.shipping_date).toLocaleDateString() : 'N/A'}</p>
+                `;
+                $('#parcelDetailsContent').html(detailsHtml);
+                $('#parcelDetailsModal').modal('show');
+            } else {
+                alert('No parcel found with this code.');
+            }
+        },
+        error: function(xhr) {
+            console.error(xhr.responseText);
+            alert('Failed to retrieve parcel details.');
+        }
+    });
+}
+
+
+
+function showDeliveryNumber(deliverymanId) {
+    $.ajax({
+        url: `/deliverymen/${deliverymanId}/number`, // Make sure this matches your route
+        method: 'GET',
+        success: function(data) {
+            console.log(data); // Log the entire response
+
+            // Check if the response contains the phone number
+            if (data.phone_number) {
+                // Format the number for WhatsApp
+                const formattedNumber = '+212' + data.phone_number.replace(/^\+|[^0-9]/g, ''); // Remove any non-numeric characters
+                const whatsappUrl = `https://wa.me/${formattedNumber}`;
+
+                // Open the WhatsApp chat link in a new tab
+                window.open(whatsappUrl, '_blank');
+            } else {
+                alert('No phone number found.');
+            }
+        },
+        error: function(xhr) {
+            // Log the response for better error handling
+            console.error(xhr.responseText);
+            alert('Failed to retrieve deliveryman information.');
+        }
+    });
+}
+
+
 function cb(st, ed) {
     $('#reportrange span').html(st.format('MMMM D, YYYY') + ' - ' + ed.format('MMMM D, YYYY'));
     start = st.format('YYYY-MM-DD')
@@ -170,6 +235,8 @@ var table = $('table#example').DataTable({
         {
             data: 'qr_code',
             render: function (data, type, row) {
+                let messageUrl = `{{ route('deliverymen.sendMessage', ':id') }}`;
+                messageUrl = messageUrl.replace(':id', row.id);
                 return `
                 <div class="btn-group">
                     <button  type="button"  class="btn btn-primary btn-sm view-qr-code"
@@ -207,8 +274,11 @@ var table = $('table#example').DataTable({
                                 <div class="dropdown-menu" aria-labelledby="btn${row.code}">
                                     <a class="dropdown-item" href="#"><i class="bx bxs-trash mr-2"></i> Remove</a>
                                     <a class="dropdown-item" href="#"><i class="bx bxs-trash mr-2"></i> Remove</a>
-                                    <a class="dropdown-item text-danger" href="#"><i class="bx bxs-trash mr-2"></i> Remove</a>
-                                </div>
+                                    <button class="btn btn-info" onclick="showParcelDetails('260994')">Show Details</button>
+                                    <a class="dropdown-item" href="#" onclick="showDeliveryNumber(${row.deliverymen_id})"><i class="bx bxs-chat mr-2"></i> Chat on WhatsApp</a>
+                                   
+    
+                                    </div>
                               </div>
                 </div>
               `;

@@ -86,11 +86,10 @@
                                     <form action="">
                                         <select class="form-control" id="delivery-filter">
                                             <option value="">Liveur</option>
-                                            @foreach ($delmens as $delmen)
-                                                <option value="{{ $delmen->id }}">
-                                                    {{ $delmen->firtsName . ' ' . $delmen->lastName }}</option>
-                                            @endforeach
-                                        </select>
+                                            @foreach ($deliverymen as $delmen)
+    <option value="{{ $delmen->id }}">
+        {{ $delmen->firstName . ' ' . $delmen->lastName }}</option>
+@endforeach                   </select>
                                         <div class="row justify-content-center mt-4">
                                             <button id="update-selected" type="button" class="btn btn-success">Ship
                                                 it</button>
